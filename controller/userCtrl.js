@@ -44,6 +44,34 @@ const userCtrl = {
       return res.status(500).json({ msg: err.message });
     }
   },
+  activateEmail: async (req, res) => {
+    try {
+      const { activation_token } = req.body;
+
+      const user = jwt.verify(
+        activation_token,
+        process.env.ACTIVATION_TOKEN_SECRET
+      );
+
+      const { name, email, password } = user;
+
+      const userCreated = await Users.findOne({ email });
+      if (userCreated)
+        return res.status(400).json({ msg: "This email already exists." });
+
+      const newUser = new Users({
+        name,
+        email,
+        password,
+      });
+
+      await newUser.save();
+
+      res.json({ msg: "Account had been created!" });
+    } catch (err) {
+      res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const validateEmail = (email) => {
@@ -52,7 +80,6 @@ const validateEmail = (email) => {
 };
 
 const createActivationToken = (payload) => {
-  console.log({ payload });
   return jwt.sign(payload, process.env.ACTIVATION_TOKEN_SECRET, {
     expiresIn: "5d",
   });
