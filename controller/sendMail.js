@@ -41,15 +41,15 @@ const sendEmail = (to, url) => {
   const mailOptions = {
     from: SENDER_EMAIL_ADDRESS,
     to: to,
-    subject: "Nudotran dev",
+    subject: "Dev Nudo350 Confirmation",
     html: `
-            <div style="max-width: 700px; margin:auto; border: 10px solid #ddd; padding: 50px 20px; font-size: 110%;">
-            <h2 style="text-align: center; text-transform: uppercase; color: teal;">Welcome to the Nudotran Project.</h2>
-            <p>Congratulations! You're almost set to start using Nudo Blog.
+            <div style="max-width: 700px; margin:auto; border: 10px solid #ffcf07; padding: 50px 20px; font-size: 110%;">
+            <h2 style="text-align: center; text-transform: uppercase; color: #15171C;">Welcome to the Nudo350 FullAuth Project.</h2>
+            <p>Congratulations! You're almost set to start using NudoDev App.
                 Just click the button below to validate your email address.
             </p>
             
-            <a href=${url} style="background: crimson; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">Active your account here</a>
+            <a href=${url} style="background: #15171C; text-decoration: none; color: white; padding: 10px 20px; margin: 10px 0; display: inline-block;">Active your account here</a>
         
             <p>If the button doesn't work for any reason, you can also click on the link below:</p>
         
