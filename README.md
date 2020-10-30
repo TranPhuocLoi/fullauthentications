@@ -7,7 +7,6 @@ Forgot password, reset password and register a new account by Email verification
 Update personal information (name, password and avatar)
 Change permissions and delete user accounts with Admin.
 
-Below is the Demo link, if you find it interesting, please subscribe to the channel. I will be making a tutorial video in the near future. Thanks and have a good day!
 
 Install dependencies for server
 npm install
@@ -27,4 +26,4 @@ npm run server
 Run the React client only
 npm run client
 
-Server runs on http://localhost:5000 and client on http://localhost:3000
+
