@@ -72,16 +72,32 @@ const userCtrl = {
       res.status(500).json({ msg: err.message });
     }
   },
-  // login: async (req, res) => {
-  //   try {
-  //     const { email, password } = req.body;
-  //     const userCreated = await Users.findOne({ email });
-  //     if (!userCreated)
-  //       return res.status(400).json({ msg: "This email dose not exits" });
-  //   } catch (err) {
-  //     return res.status(500).json({ msg: err.message });
-  //   }
-  // },
+  login: async (req, res) => {
+    try {
+      const { email, password } = req.body;
+
+      const user = await Users.findOne({ email });
+      if (!user)
+        return res.status(400).json({ msg: "This email dose not exits." });
+      console.log(user.password);
+
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch)
+        return res.status(400).json({ mgs: "Password is incorrect." });
+
+      const refresh_token = createRefreshToken({ id: user._id });
+      res.cookie("refreshToken", refresh_token, {
+        httpOnly: true,
+        path: "/user/refresh_token",
+        maxAge: 7 * 24 * 60 * 1000, // 7 days
+      });
+      console.log({ user });
+
+      res.json({ msg: "Login Success!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const validateEmail = (email) => {
