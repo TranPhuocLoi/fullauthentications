@@ -79,7 +79,6 @@ const userCtrl = {
       const user = await Users.findOne({ email });
       if (!user)
         return res.status(400).json({ msg: "This email dose not exits." });
-      console.log(user.password);
 
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch)
@@ -91,11 +90,25 @@ const userCtrl = {
         path: "/user/refresh_token",
         maxAge: 7 * 24 * 60 * 1000, // 7 days
       });
-      console.log({ user });
 
       res.json({ msg: "Login Success!" });
     } catch (err) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+  getAccessToken: (req, res) => {
+    try {
+      const rf_token = req.cookies.refreshToken;
+      if (!rf_token) return res.status(400).json({ msg: "Please Login now!" });
+
+      jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) res.status(400).json({ msg: "Please loggin now !" });
+
+        const access_token = createAccessToken({ id: user.id });
+        res.json({ access_token });
+      });
+    } catch (err) {
+      return res.status(500).json({ msg: err.massage });
     }
   },
 };
