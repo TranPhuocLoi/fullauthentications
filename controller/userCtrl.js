@@ -37,7 +37,7 @@ const userCtrl = {
 
       const url = `${CLIENT_URL}/user/active/${activation_token}`;
 
-      sendMail(email, url);
+      sendMail(email, url, "Verify your email address");
 
       res.json({ msg: "Register success! Please active your email to start" });
     } catch (err) {
@@ -109,6 +109,39 @@ const userCtrl = {
       });
     } catch (err) {
       return res.status(500).json({ msg: err.massage });
+    }
+  },
+  forgotPassword: async (req, res) => {
+    try {
+      const { email } = req.body;
+      const user = await Users.findOne({ email });
+      if (!user)
+        return res.status(400).json({ mgs: "This email does not exist." });
+
+      const access_token = createAccessToken({ id: user._id });
+      const url = `${CLIENT_URL}/user/reset/${access_token}`;
+
+      sendMail(email, url, "Reset your password.");
+      res.json({ msg: "Re-send the password, please check your email." });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  resetPassword: async (req, res) => {
+    try {
+      const { password } = req.body;
+      console.log("this is your pass: " + password);
+      const passwordHash = await bcrypt.hash(password, 12);
+
+      await Users.findOneAndUpdate(
+        { _id: req.user.id },
+        {
+          password: passwordHash,
+        }
+      );
+      res.json({ msg: "Password successfully changed!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
     }
   },
 };
