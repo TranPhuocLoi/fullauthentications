@@ -99,11 +99,11 @@ const userCtrl = {
   getAccessToken: (req, res) => {
     try {
       const rf_token = req.cookies.refreshToken;
+
       if (!rf_token) return res.status(400).json({ msg: "Please Login now!" });
 
       jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-        if (err) res.status(400).json({ msg: "Please loggin now !" });
-
+        if (err) res.status(400).json({ msg: "Please login now !" });
         const access_token = createAccessToken({ id: user.id });
         res.json({ access_token });
       });
@@ -115,6 +115,7 @@ const userCtrl = {
     try {
       const { email } = req.body;
       const user = await Users.findOne({ email });
+
       if (!user)
         return res.status(400).json({ mgs: "This email does not exist." });
 
@@ -151,11 +152,11 @@ const userCtrl = {
     } catch (err) {
       res.status(500).json({ msg: err.message });
     }
-    s;
   },
   getUserAllInfo: async (req, res) => {
     try {
       const users = await Users.find().select("-password");
+
       res.json(users);
     } catch (err) {
       res.status(500).json({ msg: err.message });
@@ -167,6 +168,26 @@ const userCtrl = {
       return res.json({ msg: "Logged Out" });
     } catch (error) {
       return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateUser: async (req, res) => {
+    try {
+      const { name, avatar } = req.body;
+
+      await Users.findOneAndUpdate({ _id: req.user.id }, { name, avatar });
+      res.json({ msg: "Update Success!" });
+    } catch (error) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
+  updateUserRole: async (req, res) => {
+    try {
+      const { role } = req.body;
+
+      await Users.findOneAndUpdate({ _id: req.params.id }, { role });
+      res.json({ msg: "Update user role success" });
+    } catch (error) {
+      return res.status(500).json({ msg: err.massage });
     }
   },
 };
