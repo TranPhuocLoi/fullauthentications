@@ -17,6 +17,8 @@ router.post("/reset_password", auth, userCtrl.resetPassword);
 
 router.get("/info", auth, userCtrl.getUserInfo);
 
-router.get("/all_info", auth, authAdmin, userCtrl.getUserInfo);
+router.get("/all_info", auth, authAdmin, userCtrl.getUserAllInfo);
+
+router.get("/logout", userCtrl.doLogout);
 
 module.exports = router;

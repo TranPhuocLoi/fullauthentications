@@ -151,13 +151,22 @@ const userCtrl = {
     } catch (err) {
       res.status(500).json({ msg: err.message });
     }
+    s;
   },
   getUserAllInfo: async (req, res) => {
     try {
-      const user = await Users.find().select("-password");
-      res.json(user);
+      const users = await Users.find().select("-password");
+      res.json(users);
     } catch (err) {
       res.status(500).json({ msg: err.message });
+    }
+  },
+  doLogout: async (req, res) => {
+    try {
+      res.clearCookie("refreshtoken", { path: "/user/refresh_token" });
+      return res.json({ msg: "Logged Out" });
+    } catch (error) {
+      return res.status(500).json({ msg: err.message });
     }
   },
 };
