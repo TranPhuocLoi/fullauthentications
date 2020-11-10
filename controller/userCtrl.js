@@ -190,6 +190,15 @@ const userCtrl = {
       return res.status(500).json({ msg: err.massage });
     }
   },
+  deleteUser: async (req, res) => {
+    try {
+      await Users.findByIdAndDelete(req.params.id);
+
+      res.json({ msg: "Deleted Success!" });
+    } catch (err) {
+      return res.status(500).json({ msg: err.message });
+    }
+  },
 };
 
 const validateEmail = (email) => {
