@@ -43,7 +43,7 @@ mongoose.connect(
 );
 
 app.use("/", (req, res, next) => {
-  res.json({ msg: "Hello every one" });
+  res.json({ msg: "Hello I'm Nudo Dev" });
 });
 
 const PORT = process.env.PORT || 3300;
