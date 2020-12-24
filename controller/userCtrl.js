@@ -166,7 +166,7 @@ const userCtrl = {
     try {
       res.clearCookie("refreshtoken", { path: "/user/refresh_token" });
       return res.json({ msg: "Logged Out" });
-    } catch (error) {
+    } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
@@ -176,7 +176,7 @@ const userCtrl = {
 
       await Users.findOneAndUpdate({ _id: req.user.id }, { name, avatar });
       res.json({ msg: "Update Success!" });
-    } catch (error) {
+    } catch (err) {
       return res.status(500).json({ msg: err.message });
     }
   },
@@ -186,7 +186,7 @@ const userCtrl = {
 
       await Users.findOneAndUpdate({ _id: req.params.id }, { role });
       res.json({ msg: "Update user role success" });
-    } catch (error) {
+    } catch (err) {
       return res.status(500).json({ msg: err.massage });
     }
   },

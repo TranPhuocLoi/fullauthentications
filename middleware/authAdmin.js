@@ -6,8 +6,8 @@ const authAdmin = async (req, res, next) => {
     if (user.role !== 1)
       return res.status(500).json({ msg: "Admin resources access denied." });
     next();
-  } catch (error) {
-    return res.status(500).json({ msg: error.message });
+  } catch (err) {
+    return res.status(500).json({ msg: err.message });
   }
 };
 
