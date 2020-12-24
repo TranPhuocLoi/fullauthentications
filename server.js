@@ -24,6 +24,7 @@ require("dotenv").config({
 //router
 
 app.use("/user", require("./routes/userRouter"));
+app.use("/api", require("./routes/upload"));
 
 //connect to mongodb
 
