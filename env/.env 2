@@ -1,0 +1,17 @@
+MONGODB_URL = mongodb+srv://fullauth:12341234@cluster0.ohwbe.mongodb.net/fullauth?retryWrites=true&w=majority
+
+ACTIVATION_TOKEN_SECRET = kD@u_:Zx#n#k&PLe6CpdmMzz5'C8uY~B)G?V7?=^rYhNu2Qat7<QDjw2)guWz4TX
+
+ACCESS_TOKEN_SECRET = rj;bn;)G#8^,'5m#;S8seU2{^Y%{>hMcH=$LtYDx%{cYxsH=82+jg<!X[b357J.v
+
+REFRESH_TOKEN_SECRET = zh+79WdPE9T:G8a$BYh`w{-#:!Ykb6Ns`N^6Z`BeS88Y@eG2.'aL9^g^+}G!5"Ry
+
+CLIENT_URL = http://localhost:3000
+
+MAILING_SERVICE_CLIENT_ID = 627448328440-9o9nbd02puucbderb4adkbm3rt4b14hp.apps.googleusercontent.com
+
+MAILING_SERVICE_CLIENT_SECRET = trYi2W3PZj2894IduBkc9KnZ
+
+MAILING_SERVICE_REFRESH_TOKEN = 1//04ykodqDDYsPzCgYIARAAGAQSNwF-L9IrcC2J4q386BPFFFAgvbu3rPwRWgULEQIvm5q9BeB_rwklyD5bIX1n96gURblK3M3olPE
+
+SENDER_EMAIL_ADDRESS = phuocloi2203@gmail.com
