@@ -3,5 +3,7 @@
     "cloudinary",
     "nudo",
     "signin"
-  ]
+  ],
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true
 }

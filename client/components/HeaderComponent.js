@@ -82,6 +82,9 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  iconShopping: {
+    color:"#fff",
+  },
 }));
 
 export default function PrimarySearchAppBar() {
@@ -196,12 +199,15 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
+
             <MenuItem>
+              <RLink href="/cart">
+                <IconButton aria-label="show 17 new notifications" color="inherit">
+                  <Badge badgeContent={17} color="secondary">
+                    <ShoppingCartIcon className={classes.iconShopping}/>
+                  </Badge>
+                </IconButton>
+              </RLink>
               <RLink href="/signin">
                 <Button variant="contained" color="secondary" fullWidth>
                   Sign In
