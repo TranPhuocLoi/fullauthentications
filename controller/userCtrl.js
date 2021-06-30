@@ -11,7 +11,7 @@ const userCtrl = {
       const { name, email, password } = req.body;
       // TODO validate input
       if (!name || !email || !password)
-        return res.status(400).json({ msg: "Please fill in all fileds." });
+        return res.status(400).json({ msg: "Please fill in all fields." });
 
       if (!validateEmail(email))
         res.status(400).json({ msg: "Invalid emails." });
@@ -77,12 +77,10 @@ const userCtrl = {
       const { email, password } = req.body;
 
       const user = await Users.findOne({ email });
-      if (!user)
-        return res.status(400).json({ msg: "This email dose not exits." });
+      if (!user) return res.status(400).json({ msg: "This email dose not exits." });
 
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch)
-        return res.status(400).json({ mgs: "Password is incorrect." });
+      const isMatch = await bcrypt.compare(password, user.password)
+      if (!isMatch) return res.status(400).json({ msg: "Password is incorrect." })
 
       const refresh_token = createRefreshToken({ id: user._id });
       res.cookie("refreshToken", refresh_token, {

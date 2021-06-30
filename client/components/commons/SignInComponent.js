@@ -13,25 +13,9 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-// import { withTranslation } from "../i18n";
-// import { compose } from "redux";
-// import { connect } from "react-redux";
-// import { loginUser } from "../stores/UserState";
-// import { LOGIN_USER } from "../stores/UserState";
+import axios from "axios";
 
-// const connectToRedux = connect(createStructuredSelector({}), (dispatch) => ({
-//   doLoginUser: (user) => {
-//     dispatch(loginUser(user));
-//     dispatch({
-//       type: LOGIN_USER,
-//       payload: {
-//         email: user.email,
-//       },
-//     });
-//   },
-// }));
-
-// const enhance = compose(withTranslation("views"), connectToRedux);
+import { showErrMsg, showSuccessMsg } from "../commons/Notifications"
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -61,10 +45,29 @@ const initialState = {
   success: "",
 };
 
-const SignInComponent = ({ t, doLoginUser }) => {
+
+const SignInComponent = () => {
   const classes = useStyles();
   const [user, setUser] = useState(initialState);
   const { email, password, err, success } = user;
+
+  const handleChangeInput = e => {
+    const { name, value } = e.target
+    console.log({ email });
+    setUser({ ...user, [name]: value, err: '', success: "" })
+  };
+
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('/user/login', { email, password })
+      console.log(res);
+
+    } catch (err) {
+      err.response.data.msg && setUser({ ...user, err: err.response.data.msg, success: "" })
+    }
+  }
+
 
   return (
     <Container component="main" maxWidth="xs">
@@ -78,10 +81,7 @@ const SignInComponent = ({ t, doLoginUser }) => {
         </Typography>
         <form
           className={classes.form}
-          onSubmit={(event) => {
-            event.preventDefault();
-            doLoginUser(user);
-          }}
+          onSubmit={handleSubmit}
         >
           <TextField
             variant="outlined"
@@ -94,7 +94,7 @@ const SignInComponent = ({ t, doLoginUser }) => {
             autoComplete="email"
             autoFocus
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={handleChangeInput}
           />
           <TextField
             variant="outlined"
@@ -107,7 +107,7 @@ const SignInComponent = ({ t, doLoginUser }) => {
             id="password"
             autoComplete="current-password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
+            onChange={handleChangeInput}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
