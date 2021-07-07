@@ -4,6 +4,7 @@ import axios from "axios"
 import { showErrMsg, showSuccessMsg } from '../../utils/notification/Notification';
 import { isEmail, isEmpty, isLength, isMatch } from "../../utils/validation/Validation"
 
+
 const initialState = {
   name: "",
   email: "",
@@ -42,7 +43,6 @@ function Register() {
     try {
       const res = await axios.post('/user/register', { name, email, password })
       setUser({ ...user, err: "", success: res.data.msg })
-
     } catch (err) {
 
       err.response.data.msg && setUser({ ...user, err: err.response.data.msg, success: "" })
